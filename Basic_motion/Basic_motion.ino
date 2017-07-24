@@ -1,5 +1,10 @@
-//基本モーション
+//Basic Motion
 #include<VarSpeedServo.h>
+
+//======================================//
+//           Constant Numbers           //
+//======================================//
+// Do Not Touch!!! //
 
 #define DEFAULT_POS 90
 
@@ -19,17 +24,25 @@
   #define A 0
   #define C 1
 
+
+//======================================//
+//               Variables              //
+//======================================//
+// Do Not Touch!!! //
+
 int servo_angles[2][2][2] = {};
 int calib[2][2][2] = {};
-
 VarSpeedServo servo[2][2][2];
 
-//プロトタイプ宣言
-//プログラミング例
+
+//======================================//
+//         Prototype Declaration        //
+//======================================//
+// Do Not Touch!!! //
+
+//example codes
 void forward();
 void turn_right();
-void onedari();
-void te_huru();
 
 //High Level functions
 void arm_move(int FR, int LR, int delta_angle, int _speed = 50);
@@ -41,6 +54,9 @@ void initialize_pose();
 void servo_move(int FR, int LR, int AC, int delta_angle, boolean isWait = true, int _speed = 50);
 void servo_move_to(int FR, int LR, int AC, int angle, boolean isWait = true, int _speed = 50);
 
+//======================================//
+//               Main Code              //
+//======================================//
 
 void setup(){
 
@@ -53,31 +69,75 @@ void setup(){
   servo[R][L][A].attach(12);
   servo[R][L][C].attach(13);
   
+  calibration(F,R,A,-30);
+  calibration(F,L,A,-28);
+  calibration(R,R,A,30);
+  calibration(R,L,A,30);
+
   initialize_pose();
 
 }
 
 void loop(){
-
-  //initialize_pose();
-
-  //delay(10000);
-
-  //onedari();
-
-  //forward();
-
-  calibration(F,R,A,-30);
-  calibration(F,L,A,-28);
-  calibration(R,R,A,30);
-  calibration(R,L,A,30);
   
-  te_huru();
   forward();
   turn_right();
 
 }
 
+
+//======================================//
+//      Write Your Function Here!!!     //
+//======================================//
+
+
+
+
+
+
+//======================================//
+//          Example Functions           //
+//======================================//
+
+void forward(){  
+
+  int count = 0;
+  
+  arm_move_to(F,R,-30);
+  arm_move_to(R,R, 30);
+  arm_move_to(F,L,-15);  
+  arm_move_to(R,L, 15);
+  
+  while(count < 10){
+
+    //reference : http://makezine.jp/blog/2016/12/robot-quadruped-arduino-program.html
+    arm_move(F,R,30); //step2
+    crawl(-15);      //step3
+    arm_move(R,L,30); //step4
+    arm_move(F,L,30); //step5
+    crawl(-15);      //step6
+    arm_move(R,R,30); //step1
+
+    count++;
+  }
+}
+
+void turn_right(){
+  int count = 0;
+  while( count < 3 ){
+    arm_move(F,R,-30);
+    arm_move(F,L,30);
+    arm_move(R,L,30);
+    arm_move(R,R,-30);
+    initialize_pose();
+    count++;
+  }
+}
+
+//======================================//
+//     Wrapper Function Definitions     //
+//======================================//
+// Do Not Touch!!! //
 
 //High Level Function
 void initialize_pose(){
@@ -151,99 +211,5 @@ void calibration(int FR , int LR, int AC, int calib_value){
     calib[FR][LR][AC] = calib_value*(LR*2-1);
   } else if (AC == 1) {
     calib[FR][LR][AC] = calib_value*(((FR+LR)%2)*2-1);
-  }
-}
-
-void te_huru(){
-
-  servo_move(REAR, LEFT, CLAW, 40, true);
-  servo_move(FRONT, RIGHT, CLAW, 40, true);
-  servo_move(FRONT, RIGHT, ARM, 20, true);
-
-  int count = 10;
-
-  while(count > 0){
-    
-    servo_move(FRONT, RIGHT, ARM, -40, true);
-    servo_move(FRONT, RIGHT, ARM, 40, true);
-    count--; 
-  }
-}
-
-void dolphin(){
-
-  int count = 10;
-
-  while(count > 0){
-
-    servo_move(FRONT, RIGHT, CLAW, -40, false);
-    servo_move(FRONT, LEFT,  CLAW, -40, true);
-    servo_move(REAR, RIGHT, CLAW, -40, false);
-    servo_move(REAR, LEFT,  CLAW, -40, true);
-
-    servo_move(FRONT, RIGHT, CLAW, 40, false);
-    servo_move(FRONT, LEFT,  CLAW, 40, true);
-    servo_move(REAR, RIGHT, CLAW, 40, false);
-    servo_move(REAR, LEFT,  CLAW, 40, true);
-    
-    count--;
-  }
-  
-}
-
-void onedari() {
-
-  servo_move_to(FRONT, RIGHT, CLAW, -45, false);
-  servo_move_to(FRONT, LEFT,  CLAW, -45, false);
-  servo_move_to(REAR,  RIGHT, CLAW,  15, false);
-  servo_move_to(REAR,  LEFT,  CLAW,  15, true);
-
-  int count = 10;
-
-  while(count > 0){
-
-    servo_move(FRONT, RIGHT, ARM, -10, false, 40);
-    servo_move(FRONT, LEFT,  ARM, -10, true,  40);
-    servo_move(FRONT, RIGHT, ARM, 10, false,  40);
-    servo_move(FRONT, LEFT,  ARM, 10, true,   40);
-    
-    count--;
-  }
-  
-}
-
-
-void forward(){  
-
-  int count = 0;
-  
-  arm_move_to(F,R,-30);
-  arm_move_to(R,R, 30);
-  arm_move_to(F,L,-15);  
-  arm_move_to(R,L, 15);
-  
-  while(count < 10){
-
-    //reference : http://makezine.jp/blog/2016/12/robot-quadruped-arduino-program.html
-    arm_move(F,R,30); //step2
-    crawl(-15);      //step3
-    arm_move(R,L,30); //step4
-    arm_move(F,L,30); //step5
-    crawl(-15);      //step6
-    arm_move(R,R,30); //step1
-
-    count++;
-  }
-}
-
-void turn_right(){
-  int count = 0;
-  while( count < 3 ){
-    arm_move(F,R,-30);
-    arm_move(F,L,30);
-    arm_move(R,L,30);
-    arm_move(R,R,-30);
-    initialize_pose();
-    count++;
   }
 }
