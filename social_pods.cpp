@@ -1,6 +1,6 @@
 //Basic Motion
 #include<VarSpeedServo.h>
-#include<SociaPod.h>
+#include<social_pods.h>
 
 //======================================//
 //               Variables              //
