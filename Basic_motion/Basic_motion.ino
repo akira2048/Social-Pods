@@ -46,7 +46,7 @@ void turn_right();
 
 //High Level functions
 void arm_move(int FR, int LR, int delta_angle, int _speed = 50);
-void arm_moveTo(int FR, int LR, int angle, int _speed = 50);
+void arm_move_to(int FR, int LR, int angle, int _speed = 50);
 void crawl(int delta_angle, int _speed = 50);
 void initialize_pose();
 
