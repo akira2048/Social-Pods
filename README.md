@@ -1,4 +1,7 @@
-# Social-Pods
-Social Pods
+# social_pods
 
-3D data: https://www.thingiverse.com/thing:2325889
+## 3D Model
+https://www.thingiverse.com/thing:2325889  
+
+## Requirement
+VarSpeedServo
