@@ -32,8 +32,8 @@ extern int calib[2][2][2];
 extern VarSpeedServo servo[2][2][2];
 
 //example codes
-void forward(int speed);
-void turn_right();
+void forward(int speed, int loop = 1);
+void turn_right(int speed = 50);
 
 //======================================//
 //         Prototype Declaration        //
@@ -42,10 +42,11 @@ void turn_right();
 //High Level functions
 void arm_move(int FR, int LR, int delta_angle, int _speed = 50);
 void arm_move_to(int FR, int LR, int angle, int _speed = 50);
-void crawl(int delta_angle, int _speed = 50);
 void initialize_pose();
 
 //Low Level Function
 void servo_move(int FR, int LR, int SC, int delta_angle, bool isWait = true, int _speed = 50);
+void servo_move(int FR, int LR, int SC, int delta_angle, int _speed);
 void servo_move_to(int FR, int LR, int SC, int angle, bool isWait = true, int _speed = 50);
+void servo_move_to(int FR, int LR, int SC, int angle, int _speed);
 void calibration(int FR, int LR, int SC, int calib_value);
