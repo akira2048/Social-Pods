@@ -15,11 +15,11 @@ void setup() {
   // Calibrate motor defualt position here
   
 
-  initialize_pose();
+  initializePose();
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
-  forward(0);
+  forward(50);
 }
