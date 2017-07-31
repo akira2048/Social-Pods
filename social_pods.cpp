@@ -88,10 +88,6 @@ void armMoveTo(int FR, int LR, int angle, int _speed = 50){
   servoMoveTo(FR, LR, C, 0, true, _speed);
 }
 
-void crawl(int deltaAngle, int _speed = 50) {
-
-};
-
 //Low Level Function
 void servoMove(int FR, int LR, int SC, int deltaAngle, bool isWait = true, int _speed = 50) {
   if(SC == 0){
@@ -108,7 +104,7 @@ void servoMove(int FR, int LR, int SC, int deltaAngle, bool isWait = true, int _
    servo[FR][LR][SC].write(DEFAULT_POS-servoAngles[FR][LR][SC], _speed, isWait);
 }
 
-void servoMove(int FR, int LR, int SC, int deltaAngle, int _speed = 50) {
+void servoMove(int FR, int LR, int SC, int deltaAngle, int _speed) {
   if(SC == 0){
     servoAngles[FR][LR][SC] += deltaAngle*(LR*2-1);
   } else if (SC == 1) {
@@ -143,7 +139,7 @@ void servoMoveTo(int FR, int LR, int SC, int angle, bool isWait = true, int _spe
   }
 }
 
-void servoMoveTo(int FR, int LR, int SC, int angle, int _speed = 50) {
+void servoMoveTo(int FR, int LR, int SC, int angle, int _speed) {
 
   if(SC == 0){
     servoAngles[FR][LR][SC] = angle*(LR*2-1) + calib[FR][LR][SC];
