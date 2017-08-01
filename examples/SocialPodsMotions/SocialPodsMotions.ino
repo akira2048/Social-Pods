@@ -5,6 +5,9 @@ void runrun(int degree = 20, int count = 5);
 void runrun2(int degree = 30, int count = 5);
 void iraira(int count = 20);
 void kanashimi(int count = 20);
+void kurekure(int count = 10);
+void bunbun(int count = 10);
+void kunekune(int count = 10);
 
 void setup() {
   
@@ -36,10 +39,16 @@ void loop() {
   delay(500);
   kanashimi();
   delay(500);
+  kurekure();
+  delay(500);
+  bunbun();
+  delay(500);
+  kunekune();
+  delay(500);
 }
 
 void runrun(int degree = 20, int count = 5){
-  int i = 0;  // Counter
+  int i = 0;  // counter
 
   // initialization
   servoMoveTo(F, L, S, -30, false);
@@ -74,7 +83,7 @@ void runrun(int degree = 20, int count = 5){
 }
 
 void runrun2(int degree = 30, int count = 5){
-  int i = 0;  // Counter
+  int i = 0;  // counter
 
   // initialization
   servoMoveTo(F, L, S, -30, false);
@@ -109,7 +118,7 @@ void runrun2(int degree = 30, int count = 5){
 }
 
 void iraira(int count = 20){
-  int i = 0;  // Counter
+  int i = 0;  // counter
 
   // initialization
   servoMoveTo(F, L, S, -30, false);
@@ -134,7 +143,7 @@ void iraira(int count = 20){
 }
 
 void kanashimi(int count = 20){
-  int i= 0; // Counter
+  int i= 0; // counter
 
   // initialization
   servoMoveTo(R, L, S, -20, false, 100);
@@ -159,3 +168,65 @@ void kanashimi(int count = 20){
   }
 }
 
+void kurekure(int count = 10) {
+
+  // initialization
+  servoMoveTo(F, R, C, -45, false);
+  servoMoveTo(F, L,  C, -45, false);
+  servoMoveTo(R,  R, C,  15, false);
+  servoMoveTo(R,  L,  C,  15, true);
+
+  int i = 0; // counter
+
+  // main motion
+  while(i < count){
+
+    servoMove(F, R, S, -10, false, 40);
+    servoMove(F, L, S, -10, true,  40);
+    servoMove(F, R, S, 10, false,  40);
+    servoMove(F, L, S, 10, true,   40);
+    
+   i++;
+  }
+  
+}
+
+void bunbun(int count = 10){
+
+  // initialization
+  servoMoveTo(R, L, C, 40, true);
+  servoMoveTo(F, R, C, 40, true);
+  servoMoveTo(F, R, S, 20, true);
+
+ int i = 0; // counter
+
+  // main motion
+  while(i < count){
+    
+    servoMove(F, R, S, -40, true);
+    servoMove(F, R, S, 40, true);
+    i++;
+  }
+}
+
+void kunekune(int count = 10){
+
+  int i = 0;  //counter
+
+  // main motion
+  while(i < count){
+
+    servoMoveTo(F, R, C, -40, false);
+    servoMoveTo(F, L,  C, -40, true);
+    servoMoveTo(R, R, C, -40, false);
+    servoMoveTo(R, L,  C, -40, true);
+
+    servoMove(F, R, C, 40, false);
+    servoMove(F, L,  C, 40, true);
+    servoMove(R, R, C, 40, false);
+    servoMove(R, L,  C, 40, true);
+    
+    i++;
+  }
+  
+}
