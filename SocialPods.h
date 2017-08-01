@@ -27,7 +27,7 @@
 //               Variables              //
 //======================================//
 
-extern int servo_angles[2][2][2];
+extern int servoAngles[2][2][2];
 extern int calib[2][2][2];
 extern VarSpeedServo servo[2][2][2];
 
