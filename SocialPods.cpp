@@ -1,6 +1,6 @@
 //Basic Motion
 #include<VarSpeedServo.h>
-#include<socialPods.h>
+#include<SocialPods.h>
 
 //======================================//
 //               Variables              //
@@ -16,7 +16,7 @@ VarSpeedServo servo[2][2][2];
 //======================================//
 
 //reference : http://makezine.jp/blog/2016/12/robot-quadruped-arduino-program.html
-void forward(int speed = 50){  
+void forward(int speed = 50, int loop = 1){  
 
   armMoveTo(F,R,-30);
   armMoveTo(R,R, 30);
@@ -24,22 +24,22 @@ void forward(int speed = 50){
   armMoveTo(R,L, 15);
   
   int count = 0;
-  while(count < 10){
+  while(count < loop){
 
     armMove(F,R,30,speed);
     
-    servoMove(F,R,S,deltaAngle, false, speed);
-    servoMove(F,L,S,deltaAngle, false, speed);
-    servoMove(R,L,S,deltaAngle, false, speed);
-    servoMove(R,R,S,deltaAngle, true,  speed);
+    servoMove(F,R,S,-15, false, speed);
+    servoMove(F,L,S,-15, false, speed);
+    servoMove(R,L,S,-15, false, speed);
+    servoMove(R,R,S,-15, true,  speed);
     
     armMove(R,L,30,speed);
     armMove(F,L,30,speed);
 
-    servoMove(F,R,S,deltaAngle, false, speed);
-    servoMove(F,L,S,deltaAngle, false, speed);
-    servoMove(R,L,S,deltaAngle, false, speed);
-    servoMove(R,R,S,deltaAngle, true,  speed);
+    servoMove(F,R,S,-15, false, speed);
+    servoMove(F,L,S,-15, false, speed);
+    servoMove(R,L,S,-15, false, speed);
+    servoMove(R,R,S,-15, true,  speed);
 
     armMove(R,R,30,speed);
 
@@ -89,6 +89,10 @@ void armMoveTo(int FR, int LR, int angle, int _speed = 50){
 }
 
 //Low Level Function
+int readServoAngle(int FR, int LR, int SC){
+  return  servoAngles[FR][LR][SC];
+}
+
 void servoMove(int FR, int LR, int SC, int deltaAngle, bool isWait = true, int _speed = 50) {
   if(SC == 0){
     servoAngles[FR][LR][SC] += deltaAngle*(LR*2-1);
@@ -159,7 +163,7 @@ void servoMoveTo(int FR, int LR, int SC, int angle, int _speed) {
   }
 }
 
-void calibration(int FR , int LR, int SC, int calib_value){
+void calibrateTo(int FR , int LR, int SC, int calib_value){
   if(SC == 0){
     calib[FR][LR][SC] = calib_value*(LR*2-1);
   } else if (SC == 1) {
