@@ -1,9 +1,10 @@
 #include <SociaPod.h>
 
-void runrun(int degree = 20);
-void runrun2(int degree = 30);
-void iraira();
-void kanashimi();
+// Prototype declaration
+void runrun(int degree = 20, int count = 5);
+void runrun2(int degree = 30, int count = 5);
+void iraira(int count = 20);
+void kanashimi(int count = 20);
 
 void setup() {
   
@@ -17,12 +18,12 @@ void setup() {
   servo[R][L][C].attach(13);
   
   // Calibrate motor defualt position here
-  calibration(F, R, S, -30);
-  calibration(R, R, S, 30);
-  calibration(F, L, S, -30);
-  calibration(R, L, S, 30);
+  calibrateTo(F, R, S, -30);
+  calibrateTo(R, R, S, 30);
+  calibrateTo(F, L, S, -30);
+  calibrateTo(R, L, S, 30);
 
-  initialize_pose();
+  initializePose();
 }
 
 void loop() {
@@ -37,123 +38,124 @@ void loop() {
   delay(500);
 }
 
-void runrun(int degree = 20){
-  int count = 0;
+void runrun(int degree = 20, int count = 5){
+  int i = 0;  // Counter
 
   // initialization
-  servo_move_to(F, L, S, -30, false);
-  servo_move_to(F, R, S, -30, false);
-  servo_move_to(R, L, S, 30, 0, false);
-  servo_move_to(R, R, S, 30, 0, false);
-  servo_move_to(F, L, C, 0, false);
-  servo_move_to(F, R, C, 0, false);
-  servo_move_to(R, L, C, 0, false);
-  servo_move_to(R, R, C, 0, true);
+  servoMoveTo(F, L, S, -30, false);
+  servoMoveTo(F, R, S, -30, false);
+  servoMoveTo(R, L, S, 30, 0, false);
+  servoMoveTo(R, R, S, 30, 0, false);
+  servoMoveTo(F, L, C, 0, false);
+  servoMoveTo(F, R, C, 0, false);
+  servoMoveTo(R, L, C, 0, false);
+  servoMoveTo(R, R, C, 0, true);
 
   // first motion
-  servo_move(F, R, S, degree, false);
-  servo_move(R, R, S, degree, false);
-  servo_move(F, L, S, degree*(-1), false);
-  servo_move(R, L, S, degree*(-1), true);
+  servoMove(F, R, S, degree, false);
+  servoMove(R, R, S, degree, false);
+  servoMove(F, L, S, degree*(-1), false);
+  servoMove(R, L, S, degree*(-1), true);
 
   // repetitive motion
-  while(count < 5){
+  while(i < count){
     delay(850);
-    servo_move(F, R, S, degree*(-2), false);
-    servo_move(R, R, S, degree*(-2), false);
-    servo_move(F, L, S, degree*2, false);
-    servo_move(R, L, S, degree*2, true);
+    servoMove(F, R, S, degree*(-2), false);
+    servoMove(R, R, S, degree*(-2), false);
+    servoMove(F, L, S, degree*2, false);
+    servoMove(R, L, S, degree*2, true);
     delay(550);
-    servo_move(F, R, S, degree*2, false);
-    servo_move(R, R, S, degree*2, false);
-    servo_move(F, L, S, degree*(-2), false);
-    servo_move(R, L, S, degree*(-2), true);
-    count++;
+    servoMove(F, R, S, degree*2, false);
+    servoMove(R, R, S, degree*2, false);
+    servoMove(F, L, S, degree*(-2), false);
+    servoMove(R, L, S, degree*(-2), true);
+    i++;
   }
 }
 
-void runrun2(int degree = 30){
-  int count = 0;
+void runrun2(int degree = 30, int count = 5){
+  int i = 0;  // Counter
 
   // initialization
-  servo_move_to(F, L, S, -30, false);
-  servo_move_to(F, R, S, -30, false);
-  servo_move_to(R, L, S, 30, 0, false);
-  servo_move_to(R, R, S, 30, 0, false);
-  servo_move_to(F, L, C, 0, false);
-  servo_move_to(F, R, C, 0, false);
-  servo_move_to(R, L, C, 0, false);
-  servo_move_to(R, R, C, 0, true);
+  servoMoveTo(F, L, S, -30, false);
+  servoMoveTo(F, R, S, -30, false);
+  servoMoveTo(R, L, S, 30, 0, false);
+  servoMoveTo(R, R, S, 30, 0, false);
+  servoMoveTo(F, L, C, 0, false);
+  servoMoveTo(F, R, C, 0, false);
+  servoMoveTo(R, L, C, 0, false);
+  servoMoveTo(R, R, C, 0, true);
 
   // first motion
-  servo_move_to(F, R, C, degree, false);
-  servo_move_to(R, R, C, degree, false);
-  servo_move_to(F, L, C, -degree, false);
-  servo_move_to(R, L, C, -degree, true);
+  servoMoveTo(F, R, C, degree, false);
+  servoMoveTo(R, R, C, degree, false);
+  servoMoveTo(F, L, C, -degree, false);
+  servoMoveTo(R, L, C, -degree, true);
 
   // repetitive motion
-  while(count < 5){
+  while(i < count){
     delay(550);
-    servo_move_to(F, R, C, -degree, false);
-    servo_move_to(R, R, C, -degree, false);
-    servo_move_to(F, L, C, degree, false);
-    servo_move_to(R, L, C, degree, true);
+    servoMoveTo(F, R, C, -degree, false);
+    servoMoveTo(R, R, C, -degree, false);
+    servoMoveTo(F, L, C, degree, false);
+    servoMoveTo(R, L, C, degree, true);
     delay(550);
-    servo_move_to(F, R, C, degree, false);
-    servo_move_to(R, R, C, degree, false);
-    servo_move_to(F, L, C, -degree, false);
-    servo_move_to(R, L, C, -degree, true);
-    count++;
+    servoMoveTo(F, R, C, degree, false);
+    servoMoveTo(R, R, C, degree, false);
+    servoMoveTo(F, L, C, -degree, false);
+    servoMoveTo(R, L, C, -degree, true);
+    i++;
   }
 }
 
-void iraira(){
-  int count = 0;
+void iraira(int count = 20){
+  int i = 0;  // Counter
 
   // initialization
-  servo_move_to(F, L, S, -30, false);
-  servo_move_to(F, R, S, -30, false);
-  servo_move_to(R, R, S, 30, 0, false);
-  servo_move_to(R, L, S, 30, 0, false);
-  servo_move_to(F, L, C, 0, false);
-  servo_move_to(F, R, C, 0, false);
-  servo_move_to(R, L, C, 0, false);
-  servo_move_to(R, R, C, 0, true);
-  arm_move_to(R, R, -50, 150);
-  arm_move_to(F, L, 40, 150);
-  servo_move_to(R, R, C, 20, true, 70);
+  servoMoveTo(F, L, S, -30, false);
+  servoMoveTo(F, R, S, -30, false);
+  servoMoveTo(R, R, S, 30, 0, false);
+  servoMoveTo(R, L, S, 30, 0, false);
+  servoMoveTo(F, L, C, 0, false);
+  servoMoveTo(F, R, C, 0, false);
+  servoMoveTo(R, L, C, 0, false);
+  servoMoveTo(R, R, C, 0, true);
+  armMoveTo(R, R, -50, 150);
+  armMoveTo(F, L, 40, 150);
+  servoMoveTo(R, R, C, 20, true, 70);
   delay(100);
 
   //main motion
-  while(count < 20){
-    servo_move_to(F, L, C, 30, true, 145);
-    servo_move_to(F, L, C, -10, true, 145);
-    count++;
+  while(i < count){
+    servoMoveTo(F, L, C, 30, true, 145);
+    servoMoveTo(F, L, C, -10, true, 145);
+    i++;
   }
 }
 
-void kanashimi(){
-  int count = 0;
+void kanashimi(int count = 20){
+  int i= 0; // Counter
 
   // initialization
-  servo_move_to(R, L, S, -20, false, 100);
-  servo_move_to(R, R, S, -20, false, 100);
-  servo_move_to(F, R, S, 50, false, 100);
-  servo_move_to(F, L, S, 50, false, 100);
-  servo_move_to(R, L, C, -20, false, 100);
-  servo_move_to(R, R, C, -20, false, 100);
-  servo_move_to(F, L, C, 50, false, 30);
-  servo_move_to(F, R, C, 50, true, 30);
+  servoMoveTo(R, L, S, -20, false, 100);
+  servoMoveTo(R, R, S, -20, false, 100);
+  servoMoveTo(F, R, S, 50, false, 100);
+  servoMoveTo(F, L, S, 50, false, 100);
+  servoMoveTo(R, L, C, -20, false, 100);
+  servoMoveTo(R, R, C, -20, false, 100);
+  servoMoveTo(F, L, C, 50, false, 30);
+  servoMoveTo(F, R, C, 50, true, 30);
   delay(100);
 
   //main motion
-  while(count < 20){
-    servo_move_to(F, R, C, 65, false, 60);
-    servo_move_to(F, L, C, 65, true, 60);
+  while(i < count){
+    servoMoveTo(F, R, C, 65, false, 60);
+    servoMoveTo(F, L, C, 65, true, 60);
     delay(50);
-    servo_move_to(F, R, C, 50, false, 60);
-    servo_move_to(F, L, C, 50, true, 60);
+    servoMoveTo(F, R, C, 50, false, 60);
+    servoMoveTo(F, L, C, 50, true, 60);
     delay(50);
-    count++;
+    i++;
   }
 }
+
