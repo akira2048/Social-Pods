@@ -1,3 +1,6 @@
+#ifndef SocialPods_h
+#define SocialPods_h
+
 #include<VarSpeedServo.h>
 
 //======================================//
@@ -51,3 +54,5 @@ void servoMove(int FR, int LR, int SC, int delta_angle, int _speed);
 void servoMoveTo(int FR, int LR, int SC, int angle, bool isWait = true, int _speed = 50);
 void servoMoveTo(int FR, int LR, int SC, int angle, int _speed);
 void calibrateTo(int FR, int LR, int SC, int calib_value);
+
+#endif
