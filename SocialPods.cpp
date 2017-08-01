@@ -159,7 +159,7 @@ void servoMoveTo(int FR, int LR, int SC, int angle, int _speed) {
   }
 }
 
-void calibration(int FR , int LR, int SC, int calib_value){
+void calibrateTo(int FR , int LR, int SC, int calib_value){
   if(SC == 0){
     calib[FR][LR][SC] = calib_value*(LR*2-1);
   } else if (SC == 1) {
