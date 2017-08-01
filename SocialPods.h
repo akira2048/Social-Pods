@@ -32,7 +32,7 @@ extern int calib[2][2][2];
 extern VarSpeedServo servo[2][2][2];
 
 //example codes
-void forward(int speed, int loop = 1);
+void forward(int speed = 50, int loop = 1);
 void turnRight(int speed = 50);
 
 //======================================//
