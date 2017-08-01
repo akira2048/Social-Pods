@@ -90,7 +90,11 @@ void armMoveTo(int FR, int LR, int angle, int _speed = 50){
 
 //Low Level Function
 int readServoAngle(int FR, int LR, int SC){
-  return  servoAngles[FR][LR][SC];
+  if(SC == 0){
+    return servoAngles[FR][LR][SC]/(LR*2-1) - calib[FR][LR][SC];
+  } else if (SC == 1) {
+    return servoAngles[FR][LR][SC]/(((FR+LR)%2)*2-1) - calib[FR][LR][SC];
+  }
 }
 
 void servoMove(int FR, int LR, int SC, int deltaAngle, bool isWait = true, int _speed = 50) {
