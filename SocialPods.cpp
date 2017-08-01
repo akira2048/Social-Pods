@@ -28,18 +28,18 @@ void forward(int speed = 50){
 
     armMove(F,R,30,speed);
     
-    servoMove(F,R,S,deltaAngle, false, speed);
-    servoMove(F,L,S,deltaAngle, false, speed);
-    servoMove(R,L,S,deltaAngle, false, speed);
-    servoMove(R,R,S,deltaAngle, true,  speed);
+    servoMove(F,R,S,-15, false, speed);
+    servoMove(F,L,S,-15, false, speed);
+    servoMove(R,L,S,-15, false, speed);
+    servoMove(R,R,S,-15, true,  speed);
     
     armMove(R,L,30,speed);
     armMove(F,L,30,speed);
 
-    servoMove(F,R,S,deltaAngle, false, speed);
-    servoMove(F,L,S,deltaAngle, false, speed);
-    servoMove(R,L,S,deltaAngle, false, speed);
-    servoMove(R,R,S,deltaAngle, true,  speed);
+    servoMove(F,R,S,-15, false, speed);
+    servoMove(F,L,S,-15, false, speed);
+    servoMove(R,L,S,-15, false, speed);
+    servoMove(R,R,S,-15, true,  speed);
 
     armMove(R,R,30,speed);
 
