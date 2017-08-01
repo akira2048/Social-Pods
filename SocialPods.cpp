@@ -16,7 +16,7 @@ VarSpeedServo servo[2][2][2];
 //======================================//
 
 //reference : http://makezine.jp/blog/2016/12/robot-quadruped-arduino-program.html
-void forward(int speed = 50){  
+void forward(int speed = 50, int loop = 1){  
 
   armMoveTo(F,R,-30);
   armMoveTo(R,R, 30);
@@ -24,7 +24,7 @@ void forward(int speed = 50){
   armMoveTo(R,L, 15);
   
   int count = 0;
-  while(count < 10){
+  while(count < loop){
 
     armMove(F,R,30,speed);
     
