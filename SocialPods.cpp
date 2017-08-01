@@ -18,10 +18,10 @@ VarSpeedServo servo[2][2][2];
 //reference : http://makezine.jp/blog/2016/12/robot-quadruped-arduino-program.html
 void forward(int speed = 50, int loop = 1){  
 
-  armMoveTo(F,R,-30);
-  armMoveTo(R,R, 30);
-  armMoveTo(F,L,-15);  
-  armMoveTo(R,L, 15);
+  if(readServoAngle(F,R,S) != -30) armMoveTo(F,R,-30);
+  if(readServoAngle(R,R,S) !=  30) armMoveTo(R,R, 30);
+  if(readServoAngle(F,L,S) != -15) armMoveTo(F,L,-15);  
+  if(readServoAngle(R,L,S) !=  15) armMoveTo(R,L, 15);
   
   int count = 0;
   while(count < loop){
@@ -90,7 +90,11 @@ void armMoveTo(int FR, int LR, int angle, int _speed = 50){
 
 //Low Level Function
 int readServoAngle(int FR, int LR, int SC){
-  return  servoAngles[FR][LR][SC];
+  if(SC == 0){
+    return servoAngles[FR][LR][SC]/(LR*2-1) - calib[FR][LR][SC];
+  } else if (SC == 1) {
+    return servoAngles[FR][LR][SC]/(((FR+LR)%2)*2-1) - calib[FR][LR][SC];
+  }
 }
 
 void servoMove(int FR, int LR, int SC, int deltaAngle, bool isWait = true, int _speed = 50) {
